@@ -1,33 +1,27 @@
-import { Component } from 'react';
-// import { PropTypes } from 'prop-types';
+import { Formik, Form, Field } from 'formik';
 
-export class Searchbar extends Component {
-  state = {
-    name: '',
-  };
-  handleNameChenge = event => {
-    this.setState({ name: event.currentTarget.value.toLowerCase() });
-  };
-  handleSubmit = e => {
-    e.preventDafault();
-    this.props.onSubmit(this.state.name);
-    this.setState({ name: '' });
+export const SearchbarForm = ({ onSubmit }) => {
+  const handleSubmit = (values, actions) => {
+    onSubmit(values.searchQuery);
+    actions.resetForm();
+    actions.setSubmitting(false);
   };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <button type="submit">
-          <span>Search</span>
-        </button>
-        <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          onChange={this.handleNameChenge}
-        />
-      </form>
-    );
-  }
-}
+  return (
+    <Formik initialValues={{ searchQuery: '' }} onSubmit={handleSubmit}>
+      {({ isSubmiting }) => (
+        <Form>
+          <button type="submit" disabled={isSubmiting}>
+            Search
+          </button>
+          <Field
+            name="searchQuery"
+            type="text"
+            placeholder="Search images and photos"
+            autoComplete="off"
+          />
+        </Form>
+      )}
+    </Formik>
+  );
+};
