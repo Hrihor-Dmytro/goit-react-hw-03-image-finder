@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { Modal } from '../Modal/Modal';
 import { Component } from 'react';
+import { ImageGalleryItem, ImageGalleryItemImage } from './ImageItem.styled';
 
 export class ImageItem extends Component {
   state = {
@@ -16,7 +17,7 @@ export class ImageItem extends Component {
   };
   render() {
     return (
-      <li>
+      <ImageGalleryItem>
         {this.state.isModalVisible && (
           <Modal
             largeImageURL={this.props.largeImageURL}
@@ -24,12 +25,12 @@ export class ImageItem extends Component {
             handleClose={this.handleCloseModal}
           />
         )}
-        <img
+        <ImageGalleryItemImage
           src={this.props.webformatURL}
           alt={this.props.tags}
           onClick={this.handleOpenModal}
         />
-      </li>
+      </ImageGalleryItem>
     );
   }
 }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import { ModalWindow, Overlay } from 'components/Modal/Modal.styled';
 
 export class Modal extends Component {
   componentDidMount() {
@@ -22,11 +23,11 @@ export class Modal extends Component {
 
   render() {
     return (
-      <div onClick={this.onBackdropClick}>
-        <div>
+      <Overlay onClick={this.onBackdropClick}>
+        <ModalWindow>
           <img src={this.props.largeImageURL} alt={this.props.tags} />
-        </div>
-      </div>
+        </ModalWindow>
+      </Overlay>
     );
   }
 }

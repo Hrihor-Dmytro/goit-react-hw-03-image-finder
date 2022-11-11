@@ -3,7 +3,9 @@ import * as API from './NewApiService/NewApiService';
 
 import { SearchbarForm } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-
+import { Loader } from './Loader/Loader';
+import { Button } from './Button/Button';
+import { AppBox } from './App.styled';
 export class App extends Component {
   state = {
     pictures: [],
@@ -56,10 +58,13 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <AppBox>
         <SearchbarForm onSubmit={this.handleSubmit} />
         <ImageGallery items={this.state.pictures} />
-      </div>
+        {this.state.isLoading && <Loader />}
+        {this.state.pictures.length === 0 && <div>Sorry, nothing found...</div>}
+        <Button onLoadMore={this.handleLoadMore} />
+      </AppBox>
     );
   }
 }
